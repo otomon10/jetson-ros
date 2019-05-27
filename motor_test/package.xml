@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>motor_test</name>
+  <version>0.0.1</version>
+  <description>The motor_test package</description>
+  <maintainer email="otomono@gmail.com">otomon10</maintainer>
+  <license>BSD</license>
+  <url type="website">https://otomon10.hatenablog.com/</url>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_export_depend>roscpp</build_export_depend>
+  <build_export_depend>std_msgs</build_export_depend>
+  <build_export_depend>sensor_msgs</build_export_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+</package>
