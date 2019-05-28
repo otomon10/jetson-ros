@@ -25,7 +25,6 @@ int main(int argc, char **argv)
         pub.publish(cmd_motor);
         ros::spinOnce();
         loop_rate.sleep();
-
     }
 
 	return 0;
