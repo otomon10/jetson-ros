@@ -13,7 +13,7 @@ void joyCallback(const sensor_msgs::Joy::ConstPtr& msg)
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "motor_test");
+    ros::init(argc, argv, "motor_node");
     ros::NodeHandle n;
     ros::Subscriber sub = n.subscribe("joy", 1000, joyCallback);
 
