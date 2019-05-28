@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(motor_test)
+project(motor_node)
 
 find_package(catkin REQUIRED COMPONENTS
     roscpp
@@ -21,9 +21,9 @@ add_compile_options(
     -std=c++11
 )
 
-add_executable(motor_test
-    src/motor_test.cpp
+add_executable(motor_node
+    src/motor_node.cpp
     src/gpio.cpp
     src/motor.cpp
 )
-target_link_libraries(motor_test ${catkin_LIBRARIES})
+target_link_libraries(motor_node ${catkin_LIBRARIES})

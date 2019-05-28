@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>motor_test</name>
+  <name>motor_node</name>
   <version>0.0.1</version>
-  <description>The motor_test package</description>
+  <description>The motor_node package</description>
   <maintainer email="otomono@gmail.com">otomon10</maintainer>
   <license>BSD</license>
   <url type="website">https://otomon10.hatenablog.com/</url>
