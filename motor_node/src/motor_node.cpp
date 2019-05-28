@@ -2,8 +2,8 @@
 #include "sensor_msgs/Joy.h"
 #include "motor.h"
 
-Motor *motorL;
-Motor *motorR;
+std::unique_ptr<Motor> motorL;
+std::unique_ptr<Motor> motorR;
 
 void joyCallback(const sensor_msgs::Joy::ConstPtr& msg)
 {
@@ -17,8 +17,8 @@ int main(int argc, char **argv)
     ros::NodeHandle n;
     ros::Subscriber sub = n.subscribe("joy", 1000, joyCallback);
 
-    motorL = new Motor(89, 202);
-    motorR = new Motor(187, 186);
+    motorL.reset(new Motor(89, 202));
+    motorR.reset(new Motor(187, 186));
 
     ros::spin();
 
