@@ -30,7 +30,12 @@ double Motor::getSpeed()
 
 void Motor::run(double speed)
 {
-    this->speed = speed;
+    if(abs(speed) > 1.0){
+        this->speed = speed / abs(speed);
+    }
+    else {
+        this->speed = speed;
+    }
 
     if(0 < speed){
         state = RunningForward;

@@ -16,8 +16,19 @@ void velCallback(const geometry_msgs::Twist::ConstPtr& vel)
 {
     // only applies a given velocity for 1 second for safety reasons.
     ros::Rate loop(1);
-    motorL->run(vel->linear.x); // TODO: calc m/s and rad.
-    motorR->run(vel->linear.x);
+    double linearSpeed = 0;                 /* -1.0 ~ 1.0 */
+    double angularSpeed = 0;
+    const double maxLinearSpeed = 0.13729;  /* m/s */
+    const double maxAngularSpeed = 0.13729; /* rad/s */  // TODO: calc
+
+    linearSpeed = vel->linear.x / maxLinearSpeed;
+    angularSpeed = vel->angular.z / maxAngularSpeed;
+
+    ROS_INFO("linearSpeed = %lf", linearSpeed);
+    ROS_INFO("angularSpeed = %lf", angularSpeed);
+
+    motorL->run(linearSpeed + angularSpeed);
+    motorR->run(linearSpeed - angularSpeed);
     loop.sleep();
     motorL->run(0);
     motorR->run(0);
@@ -35,5 +46,5 @@ int main(int argc, char **argv)
 
     ros::spin();
 
-	return 0;
+    return 0;
 }
