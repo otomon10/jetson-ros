@@ -19,7 +19,8 @@ void velCallback(const geometry_msgs::Twist::ConstPtr& vel)
     double linearSpeed = 0;                 /* -1.0 ~ 1.0 */
     double angularSpeed = 0;
     const double maxLinearSpeed = 0.13729;  /* m/s */
-    const double maxAngularSpeed = 0.13729; /* rad/s */  // TODO: calc
+    const double radius = 8.0;
+    const double maxAngularSpeed = maxLinearSpeed / radius; /* rad/s */
 
     linearSpeed = vel->linear.x / maxLinearSpeed;
     angularSpeed = vel->angular.z / maxAngularSpeed;
