@@ -3,8 +3,8 @@
 #include "geometry_msgs/Twist.h"
 #include "motor.h"
 
-std::unique_ptr<Motor> motorL;
-std::unique_ptr<Motor> motorR;
+static std::unique_ptr<Motor> motorL;
+static std::unique_ptr<Motor> motorR;
 
 void joyCallback(const sensor_msgs::Joy::ConstPtr& joy)
 {
@@ -16,17 +16,17 @@ void velCallback(const geometry_msgs::Twist::ConstPtr& vel)
 {
     // only applies a given velocity for 1 second for safety reasons.
     ros::Rate loop(1);
-    double linearSpeed = 0;                 /* -1.0 ~ 1.0 */
-    double angularSpeed = 0;
-    const double maxLinearSpeed = 0.13729;  /* m/s */
-    const double radius = 8.0;
-    const double maxAngularSpeed = maxLinearSpeed / radius; /* rad/s */
+    float linearSpeed = 0;
+    float angularSpeed = 0;
+    const float radius = 8.0;
+    const float maxLinearSpeed = 0.13729f;  // [m/s]
+    const float maxAngularSpeed = maxLinearSpeed / radius;  // [rad/s]
 
-    linearSpeed = vel->linear.x / maxLinearSpeed;
-    angularSpeed = vel->angular.z / maxAngularSpeed;
+    linearSpeed = static_cast<float>(vel->linear.x) / maxLinearSpeed;
+    angularSpeed = static_cast<float>(vel->angular.z) / maxAngularSpeed;
 
-    ROS_INFO("linearSpeed = %lf", linearSpeed);
-    ROS_INFO("angularSpeed = %lf", angularSpeed);
+    ROS_INFO("linearSpeed = %f", linearSpeed);
+    ROS_INFO("angularSpeed = %f", angularSpeed);
 
     motorL->run(linearSpeed + angularSpeed);
     motorR->run(linearSpeed - angularSpeed);

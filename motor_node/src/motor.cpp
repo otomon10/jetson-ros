@@ -1,4 +1,4 @@
-#include <math.h>
+#include <cmath>
 #include "unistd.h"
 #include "motor.h"
 
@@ -23,15 +23,15 @@ Motor::MotorState Motor::getState()
     return state;
 }
 
-double Motor::getSpeed()
+float Motor::getSpeed()
 {
     return speed;
 }
 
-void Motor::run(double speed)
+void Motor::run(float speed)
 {
-    if(abs(speed) > 1.0){
-        this->speed = speed / abs(speed);
+    if(std::fabs(speed) > 1.0f){
+        this->speed = speed / std::fabs(speed);
     }
     else {
         this->speed = speed;
@@ -55,14 +55,16 @@ void Motor::stop()
 
 void Motor::motorRunning()
 {
+    const float Tus = 20000;   // T = 20 [ms]
+
     while(true)
     {
+        float duty = std::fabs(speed);
+
         // low
         in1->write(0);
         in2->write(0);
-        double abs_speed = abs(speed);
-        int wait_time = static_cast<int>((1.0 - abs_speed) * 10 * 1000);
-        usleep(wait_time);
+        usleep(static_cast<unsigned int>(Tus * (1.0f - duty)));
 
         // high
         if(0 < speed){
@@ -73,6 +75,6 @@ void Motor::motorRunning()
             // reverse
             in2->write(1);
         }
-        usleep(1000);
+        usleep(static_cast<unsigned int>(Tus * duty));
     }
 }

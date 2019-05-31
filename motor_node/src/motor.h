@@ -14,14 +14,14 @@ public:
     };
     explicit Motor(int pin1, int pin2);
     ~Motor();
-    void run(double speed); // -1.0 ~ 1.0
+    void run(float speed); // -1.0 ~ 1.0
     void stop();
     MotorState getState();
-    double getSpeed();
+    float getSpeed();
 
 private:
     void motorRunning();
-    double speed;
+    float speed;
     MotorState state;
     Gpio *in1;
     Gpio *in2;
