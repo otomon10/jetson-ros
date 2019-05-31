@@ -18,7 +18,7 @@ void velCallback(const geometry_msgs::Twist::ConstPtr& vel)
     ros::Rate loop(1);
     float linearSpeed = 0;
     float angularSpeed = 0;
-    const float radius = 8.0;
+    const float radius = 0.08f;   // 8[cm]
     const float maxLinearSpeed = 0.13729f;  // [m/s]
     const float maxAngularSpeed = maxLinearSpeed / radius;  // [rad/s]
 
