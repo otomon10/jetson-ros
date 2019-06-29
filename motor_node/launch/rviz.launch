@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="camera_model"         default="zedm" />
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find zed_display_rviz)/rviz/$(arg camera_model).rviz" output="screen" />
+</launch>
+
