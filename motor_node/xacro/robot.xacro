@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="dtw_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="robot" xmlns:xacro="http://ros.org/wiki/xacro">
   <material name="gray">
     <color rgba="0.5 0.5 0.5 2.5"/>
   </material>
@@ -9,7 +9,6 @@
   <material name="dark_gray">
     <color rgba="0.2 0.2 0.2 2.5"/>
   </material>
-
 
   <xacro:macro name="wheel_macro" params="parent prefix xyz">
     <joint name="${prefix}_joint" type="continuous">
@@ -28,7 +27,13 @@
     </link>
   </xacro:macro> 
 
+  <link name="odom"/>
+
   <link name="base_link"/>
+  <joint name="base_joint" type="floating">
+    <parent link="odom"/>
+    <child  link="base_link"/>
+  </joint>
 
   <joint name="body_joint_up" type="fixed">
     <parent link="base_link"/>
