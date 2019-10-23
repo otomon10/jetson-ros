@@ -1,13 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 	<!-- rviz -->
-	<arg name="model" default="$(find motor_node)/xacro/robot.xacro" />
 	<arg name="rvizconfig" default="$(find motor_node)/rviz/motor_node.rviz" />
-
-	<param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
-	<param name="use_gui" value="true"/>
-
-	<node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
 	<node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
 
 	<!-- other -->
