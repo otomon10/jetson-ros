@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+    <!-- robot model -->
+    <arg name="model" default="$(find motor_node)/xacro/robot.xacro"/>
+    <param name="robot_description" command="$(find xacro)/xacro $(arg model) --inorder"/>
+
+    <!-- motor_node -->
+    <node pkg="motor_node" type="motor_node" name="motor_node"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+
+    <!-- rplidar_ros -->
+    <include file="$(find rplidar_ros)/launch/rplidar.launch"/>
+    <param name="/rplidarNode/frame_id" value="rplidar_link"/>
+</launch>
