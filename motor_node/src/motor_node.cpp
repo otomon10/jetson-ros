@@ -1,8 +1,8 @@
-#include "ros/ros.h"
-#include "sensor_msgs/Joy.h"
-#include "sensor_msgs/JointState.h"
-#include "geometry_msgs/Twist.h"
-#include "tf/transform_broadcaster.h"
+#include <ros/ros.h>
+#include <sensor_msgs/Joy.h>
+#include <sensor_msgs/JointState.h>
+#include <geometry_msgs/Twist.h>
+#include <tf/transform_broadcaster.h>
 #include "motor.h"
 
 static std::unique_ptr<Motor> motorL;
@@ -131,9 +131,20 @@ int main(int argc, char **argv)
 
     motorL.reset(new Motor(89, 202));
     motorR.reset(new Motor(187, 186));
-    publishJointState(0, 0);
 
-    ros::spin();
+    ros::AsyncSpinner spinner(1);
+    spinner.start();
+
+    ros::Rate rate(10);
+    while(ros::ok())
+    {
+        {
+            publishJointState(0, 0);
+        }
+        rate.sleep();
+    }
+
+    spinner.stop();
 
     return 0;
 }
