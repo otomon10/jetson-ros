@@ -1,14 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
     <!-- robot model -->
-    <arg name="model" default="$(find motor_node)/xacro/robot.xacro"/>
+    <arg name="model" default="$(find motor_node)/xacro/roombot.xacro"/>
     <param name="robot_description" command="$(find xacro)/xacro $(arg model) --inorder"/>
 
     <!-- motor_node -->
-    <node pkg="motor_node" type="motor_node" name="motor_node"/>
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+    <node pkg="motor_node" type="motor_node" name="motor_node"/>
 
     <!-- rplidar_ros -->
     <include file="$(find rplidar_ros)/launch/rplidar.launch"/>
     <param name="/rplidarNode/frame_id" value="rplidar_link"/>
+
+    <!-- ZED mini -->
+    <arg name="svo_file"             default="" /> 
+    <arg name="stream"               default="" />
+    <arg name="node_name"            default="zed_node" />
+    <arg name="camera_model"         default="zedm" />
+    <arg name="publish_urdf"         default="false" />
+    <group ns="zed">
+        <include file="$(find zed_wrapper)/launch/zed_camera.launch">
+            <arg name="svo_file"            value="$(arg svo_file)" />
+            <arg name="stream"              value="$(arg stream)" />
+            <arg name="node_name"           value="$(arg node_name)" />
+            <arg name="camera_model"        value="$(arg camera_model)" />
+            <arg name="publish_urdf"        value="$(arg publish_urdf)" />            
+        </include>
+    </group>
+
+    <!-- gmapping -->
+    <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping" clear_params="true">
+      <rosparam command="load" file="$(find motor_node)/config/gmapping.yaml" />
+    </node>
 </launch>
